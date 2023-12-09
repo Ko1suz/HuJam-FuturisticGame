@@ -7,6 +7,7 @@ public class Instance512Cubes : MonoBehaviour
     public GameObject sampleCubePrefab;
     GameObject[] sampleCube = new GameObject[512];
     public float multiplyHeight = 5;
+    public float multiplyWidth = 100;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +18,7 @@ public class Instance512Cubes : MonoBehaviour
             cloneCube.transform.parent = this.transform;
             cloneCube.name = "CloneKüpId -> " + i;
             this.transform.eulerAngles = new Vector3(0.0f, -0.703125f * i, 0.0f);
-            cloneCube.transform.position = Vector3.forward * 100;
+            cloneCube.transform.position = Vector3.forward * multiplyWidth;
             sampleCube[i] = cloneCube;
         }
     }
@@ -29,7 +30,7 @@ public class Instance512Cubes : MonoBehaviour
         {
             if (sampleCube != null)
             {
-                sampleCube[i].transform.localScale = new Vector3(10, (AudioPeer.samples[i] * multiplyHeight) + 2, 10);
+                sampleCube[i].transform.localScale = new Vector3(1, (AudioPeer.samples[i] * multiplyHeight) + 2, 1);
             }
         }
     }
