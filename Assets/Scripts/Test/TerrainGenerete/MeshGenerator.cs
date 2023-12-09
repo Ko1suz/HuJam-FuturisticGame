@@ -14,8 +14,13 @@ public class MeshGenerator : MonoBehaviour
     public int xSize = 20;
     public int zSize = 20;
     public float multiplyY = 2;
+    public float multiplyZ = 2;
     public int XbuferIndex = 1;
     public int YbuferIndex = 5;
+
+    public bool Ters = false;
+    public int _z_Axis_Ofsset;
+    Vector3 objectStartPos;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +28,7 @@ public class MeshGenerator : MonoBehaviour
         GetComponent<MeshFilter>().mesh = mesh;
 
         CreateShape();
-       
+        objectStartPos = transform.position;
         Debug.Log("VErtices ->"+vertices.Length);
     }
 
@@ -80,17 +85,65 @@ public class MeshGenerator : MonoBehaviour
 
     }
 
+    // 0->100 100->200   0-1-0  zindex zsize zindex > zsize/2  -> zindex - zsize/2
     void UpdateMesh()
     {
         for (int i = 0, z = 0; z <= zSize; z++)
         {
             for (int x = 0; x <= xSize; x++)
             {
-                float y = Mathf.PerlinNoise(x * (AudioPeer.audioBandBuffer[XbuferIndex] * multiplyY), z * (AudioPeer.audioBandBuffer[YbuferIndex] * multiplyY)) * 2f;
-                vertices[i] = new Vector3(x, y, z);
+                if (Ters)
+                {
+                    if (multiplyZ == 0)
+                    {
+                        float y = Mathf.PerlinNoise(x * (AudioPeer.audioBandBuffer[XbuferIndex] * multiplyY), z * (AudioPeer.audioBandBuffer[YbuferIndex] * multiplyY)) * 2f;
+                        vertices[i] = new Vector3(x, 0.05f * (xSize - x) * y, z);
+                    }
+                    else
+                    {
+                        float y = Mathf.PerlinNoise(x * (AudioPeer.audioBandBuffer[XbuferIndex] * multiplyY), z * (AudioPeer.audioBandBuffer[YbuferIndex] * multiplyY)) * 2f;
+                       
+                        if (z > zSize/2)
+                        {
+                            vertices[i] = new Vector3(x, 0.05f * (xSize - x) * y * (-(z - zSize) * multiplyZ), z);
+                        }
+                        else
+                        {
+                            vertices[i] = new Vector3(x, 0.05f * (xSize - x) * y * (z * multiplyZ), z);
+                        }
+
+                        //vertices[i] = new Vector3(x, 0.05f * (xSize - x) * y * (-(z - zSize)*multiplyZ), z);
+
+                    }
+                   
+                }
+                else
+                {
+                    if (multiplyZ == 0)
+                    {
+                        float y = Mathf.PerlinNoise(x * (AudioPeer.audioBandBuffer[XbuferIndex] * multiplyY), z * (AudioPeer.audioBandBuffer[YbuferIndex] * multiplyY)) * 2f;
+                        vertices[i] = new Vector3(x, 0.05f * x * y, z);
+                    }
+                    else
+                    {
+                        float y = Mathf.PerlinNoise(x * (AudioPeer.audioBandBuffer[XbuferIndex] * multiplyY), z * (AudioPeer.audioBandBuffer[YbuferIndex] * multiplyY)) * 2f;
+                        if (z > zSize / 2)
+                        {
+                            vertices[i] = new Vector3(x, 0.05f * x * y * (-(z - zSize) * multiplyZ), z);
+                        }
+                        else
+                        {
+                            vertices[i] = new Vector3(x, 0.05f * x * y * (z * multiplyZ), z);
+                        }
+                        
+                    } 
+                }
+
+               
                 i++;
             }
         }
+      
         mesh.Clear();
         mesh.vertices = vertices;
         mesh.triangles = triangels;
