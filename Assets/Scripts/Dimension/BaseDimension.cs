@@ -2,17 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseDimension : MonoBehaviour
+public abstract class BaseDimension : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static float current_Z_pos;
+    public int partCount;
+    public int part_X_Lenght;
+    public int part_Y_Lenght;
+    public int part_Z_Lenght;
+    [Header("Refs")]
+    Transform player;
+
+    [Header("Prefabs")]
+    public GameObject partPrefab; 
+
+
+    [Header("CurrentValues")]
+    public List<GameObject> parts;
+
+
+
+
+
+    void SpawnParts()
     {
-        
+        for (int i = 0; i < partCount; i++)
+        {
+            GameObject clonePart = new GameObject();
+            clonePart.SetActive(false);
+            parts.Add(clonePart);
+        }
+    }
+    void CallPart()
+    {
+
     }
 
-    // Update is called once per frame
-    void Update()
+    void CheckPlayerPositon()
     {
-        
+
     }
 }

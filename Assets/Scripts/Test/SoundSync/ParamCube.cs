@@ -17,14 +17,14 @@ public class ParamCube : MonoBehaviour
     {
         if (useBuffer)
         {
-            transform.localScale = new Vector3(10, (AudioPeer.audioBandBuffer[band] * scaleMulti) + startScale, 10);
+            transform.localScale = new Vector3(transform.localScale.x, (AudioPeer.audioBandBuffer[band] * scaleMulti) + startScale, transform.localScale.z);
             Color _color = new Color(AudioPeer.audioBandBuffer[band], AudioPeer.audioBand[band], 0);
             material.SetColor("_MainColor", _color);
             //Debug.Log(AudioPeer.audioBandBuffer[band]);
         }
         else
         {
-            transform.localScale = new Vector3(10, (AudioPeer.audioBand[band] * scaleMulti) + startScale, 10);
+            transform.localScale = new Vector3(transform.localScale.x, (AudioPeer.audioBand[band] * scaleMulti) + startScale, transform.localScale.z);
             Color _color = new Color(AudioPeer.audioBandBuffer[band], AudioPeer.audioBandBuffer[band], AudioPeer.audioBandBuffer[band]);
             material.SetColor("_MainColor", _color);
         }

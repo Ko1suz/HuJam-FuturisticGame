@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BorderLine
+  m_Name: BorderLineRoad
   m_Shader: {fileID: -6465566751694194690, guid: 8ddb6e6c5d3d7484ea337e540e9a8d6e,
     type: 3}
   m_Parent: {fileID: 0}
@@ -125,7 +125,7 @@ Material:
     - _EmisyonColor: {r: 18.16482, g: 18.16482, b: 18.16482, a: 1}
     - _NoiseSpeed: {r: 0.1, g: 0.5, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _Tiling: {r: 20, g: 3000, b: 0, a: 0}
+    - _Tiling: {r: 5, g: 10, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &2175283793604422802
 MonoBehaviour:
