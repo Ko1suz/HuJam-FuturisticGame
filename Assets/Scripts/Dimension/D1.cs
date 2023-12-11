@@ -8,11 +8,23 @@ public class D1 : BaseDimension
     protected override void Start()
     {
         base.Start();
+        SetPostProcces();
     }
-
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        SetPostProcces();
+    }
     // Update is called once per frame
     protected override void Update()
     {
         base.Update();  
+    }
+
+
+    void SetPostProcces()
+    {
+        gameManager.PostProccesControl.FilmGrain.active = true;
+        gameManager.PostProccesControl.reflectionProbe.gameObject.SetActive(false);
     }
 }

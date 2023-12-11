@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager _instance;
     public Transform PlayerTransform;
+    public PostProccesControl PostProccesControl;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -17,10 +18,11 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this);
         }
+        SetReferances();
     }
     void Start()
     {
-        SetReferances();
+       
     }
 
     // Update is called once per frame
@@ -32,5 +34,6 @@ public class GameManager : MonoBehaviour
     void SetReferances()
     {
         PlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        PostProccesControl = GetComponent<PostProccesControl>();
     }
 }

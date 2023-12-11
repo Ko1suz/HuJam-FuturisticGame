@@ -39,9 +39,9 @@ public class ScaleOnAmplitude : MonoBehaviour
     float timer;
     void ScaleUp()
     {
-        if (scaleUp && timer <= 60)
+        if (scaleUp && timer <= 120)
         {
-            this.gameObject.transform.localScale = Vector3.Lerp(new Vector3(scaleMin, scaleMin, scaleMin ), new Vector3(scaleMax, scaleMax, scaleMax) , timer/60);
+            this.gameObject.transform.localScale = Vector3.Lerp(new Vector3(scaleMin, scaleMin, scaleMin ), new Vector3(scaleMax, scaleMax, scaleMax) , timer/120);
             timer += Time.deltaTime;
         }
     }

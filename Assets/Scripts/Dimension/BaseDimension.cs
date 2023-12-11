@@ -5,6 +5,7 @@ using UnityEngine;
 
 public abstract class BaseDimension : MonoBehaviour
 {
+    protected GameManager gameManager = GameManager._instance;
     public string dimensonName;
     public static float current_Z_pos;
     public int partCount;
@@ -15,23 +16,40 @@ public abstract class BaseDimension : MonoBehaviour
     public float spawnOffset = 500;
     [Header("Refs")]
     public Transform player;
+    [SerializeField] public Material skybox;
+    [SerializeField] AudioClip[] dimensionMusics;
 
     [Header("Prefabs")]
     public GameObject partPrefab;
+    public float sunYoffset = 300;
+    public float sunXoffset = 0;
     public GameObject sunPrefab;
-
+    //public GameObject reflectionProbePrefab;
 
     [Header("CurrentValues")]
     public List<GameObject> currentParts;
-
+    protected GameObject currentSun;
 
 
     private void Awake()
     {
         
     }
+    protected virtual void OnEnable()
+    {
+        RenderSettings.skybox = skybox;
+    }
+    protected virtual void OnDisable()
+    {
+        for (int i = 0; i < currentParts.Count; i++)
+        {
+            currentParts[i].SetActive(false);
+            currentParts[i].transform.position = Vector3.zero;
+        }
+    }
     protected virtual void Start()
     {
+        player = GameManager._instance.PlayerTransform;
         SpawnParts();
         Call_a_Part();
     }
@@ -57,9 +75,14 @@ public abstract class BaseDimension : MonoBehaviour
             clonePart.SetActive(false);
             currentParts.Add(clonePart);
         }
-        GameObject sunPrefabClone =  Instantiate(sunPrefab);
-        sunPrefabClone.transform.parent = this.gameObject.transform;
-        sunPrefabClone.transform.localPosition = new Vector3(0,300,0);    
+        if (sunPrefab != null)
+        {
+            GameObject sunPrefabClone = Instantiate(sunPrefab);
+            sunPrefabClone.transform.parent = this.gameObject.transform;
+            sunPrefabClone.transform.localPosition = new Vector3(sunXoffset, sunYoffset, 0);
+            sunPrefabClone.SetActive(true);
+            currentSun = sunPrefabClone;
+        }
     }
     void Call_a_Part()
     {
