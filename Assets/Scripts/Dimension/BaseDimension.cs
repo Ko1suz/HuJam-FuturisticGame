@@ -56,7 +56,6 @@ public abstract class BaseDimension : MonoBehaviour
     protected virtual void Start()
     {
         player = GameManager._instance.PlayerTransform;
-        SpawnParts();
         Call_a_Part();
     }
 
@@ -69,7 +68,7 @@ public abstract class BaseDimension : MonoBehaviour
     }
 
   
-    void SpawnParts()
+    public void SpawnParts()
     {
         for (int i = 0; i < partCount; i++)
         {

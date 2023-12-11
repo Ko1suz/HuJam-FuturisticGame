@@ -46,11 +46,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dimensonName: D3
-  partCount: 15
+  partCount: 6
   part_X_Lenght: 50
   part_Y_Lenght: 0
   part_Z_Lenght: 100
-  spawnOffset: 1000
+  spawnOffset: 500
   player: {fileID: 0}
   skybox: {fileID: 2100000, guid: bd0fa899582a1a0428452c239c219353, type: 2}
   dimensionMusics:

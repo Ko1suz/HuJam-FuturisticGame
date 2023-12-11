@@ -33,6 +33,7 @@ public class DimensionControl : MonoBehaviour
         {
             GameObject cloneDimension = Instantiate(dimensionPrefabs[i].gameObject);
             cloneDimension.SetActive(false);
+            cloneDimension.GetComponent<BaseDimension>().SpawnParts();
             currentDimensions.Add(cloneDimension);
         }
     }
