@@ -17,7 +17,7 @@ public abstract class BaseDimension : MonoBehaviour
     [Header("Refs")]
     public Transform player;
     [SerializeField] public Material skybox;
-    [SerializeField] AudioClip[] dimensionMusics;
+    public AudioClip[] dimensionMusics;
 
     [Header("Prefabs")]
     public GameObject partPrefab;
@@ -38,6 +38,12 @@ public abstract class BaseDimension : MonoBehaviour
     protected virtual void OnEnable()
     {
         RenderSettings.skybox = skybox;
+        gameManager.audioSource.clip = ReturnDimensionSong();
+        gameManager.audioSource.Play();
+    }
+    public AudioClip ReturnDimensionSong()
+    {
+        return dimensionMusics[Random.Range(0, dimensionMusics.Length)];
     }
     protected virtual void OnDisable()
     {

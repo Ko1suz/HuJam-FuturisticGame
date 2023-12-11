@@ -53,7 +53,8 @@ MonoBehaviour:
   spawnOffset: 1000
   player: {fileID: 0}
   skybox: {fileID: 2100000, guid: bd0fa899582a1a0428452c239c219353, type: 2}
-  dimensionMusics: []
+  dimensionMusics:
+  - {fileID: 8300000, guid: 2dc7103c35f304a4fba34825a77d7d75, type: 3}
   partPrefab: {fileID: 1433837469823614446, guid: 9477c832f55d4f844abd023aefc0dca3,
     type: 3}
   sunYoffset: -10

@@ -42,7 +42,7 @@ public class BaseNpc : MonoBehaviour
 
     void Move()
     {
-        rb.velocity = Vector3.forward * speed * (AudioPeer.audioBandBuffer[1] * 10);
+        rb.velocity = Vector3.forward * speed;
     }
 
     float distanceTimer = 0;

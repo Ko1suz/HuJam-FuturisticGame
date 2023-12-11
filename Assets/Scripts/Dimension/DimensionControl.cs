@@ -53,4 +53,9 @@ public class DimensionControl : MonoBehaviour
             currentDimensions[dimensionIndex].SetActive(true);
         }
     }
+
+    public AudioClip ReturnDimensionSong()
+    {
+        return currentDimensions[dimensionIndex].GetComponent<BaseDimension>().dimensionMusics[Random.Range(0, currentDimensions[dimensionIndex].GetComponent<BaseDimension>().dimensionMusics.Length)];
+    }
 }

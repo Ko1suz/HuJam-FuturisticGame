@@ -73,13 +73,13 @@ public class BaseNpcSpawner : MonoBehaviour
                 {
                     currentNPC.GetComponent<BaseNpc>().zPositveDirection = true;
                     currentNPC.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    currentNPC.GetComponent<BaseNpc>().speed = 5;
+                    currentNPC.GetComponent<BaseNpc>().speed = 20;
                 }
                 else
                 {
                     currentNPC.GetComponent<BaseNpc>().zPositveDirection = false;
                     currentNPC.transform.rotation = Quaternion.Euler(0, 180, 0);
-                    currentNPC.GetComponent<BaseNpc>().speed = -5;
+                    currentNPC.GetComponent<BaseNpc>().speed = -20;
                 }
 
                 currentNPC.transform.position = new Vector3(randomIndex, 1, gameManager.PlayerTransform.position.z + spawnZ_Ofsset);

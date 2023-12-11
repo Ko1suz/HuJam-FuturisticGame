@@ -9,10 +9,11 @@ public class GameManager : MonoBehaviour
     public Transform PlayerTransform;
     public PostProccesControl PostProccesControl;
     public AudioSource audioSource;
-
-    CarControllerLudum player;
+    public DimensionControl dimensionControl;
+    public CarControllerLudum player;
 
     [Header("Varriables")]
+    public float currentScore = 0;
     public float gameOverLerpMulti = .5f;
     // Start is called before the first frame update
     private void Awake()

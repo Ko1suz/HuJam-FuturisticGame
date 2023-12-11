@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class CarControllerLudum : MonoBehaviour
 {
+    GameManager gameManager = GameManager._instance;
     public Rigidbody rb;
     public bool isAlive = true;
     [Header("Speed")]
@@ -93,6 +94,14 @@ public class CarControllerLudum : MonoBehaviour
         {
             // Input yok ise arabayı orjinal rotasyonuna sokuyor // Ayrıca çarpınca arabanın sapıtmasını engelliyor
             rb.angularVelocity = Vector3.zero;
+        }
+        if (Input.GetAxis("Horizontal")>0)
+        {
+            rb.AddForce(transform.right * currentSpeed/2);
+        }
+        else if (Input.GetAxis("Horizontal") < 0)
+        {
+            rb.AddForce(-transform.right * currentSpeed/2);
         }
     }
 
