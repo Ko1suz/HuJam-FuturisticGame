@@ -10,13 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 7744037947884977874}
   - component: {fileID: 5866002668737604178}
+  - component: {fileID: 503498245604484005}
   m_Layer: 0
   m_Name: D2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7744037947884977874
 Transform:
   m_ObjectHideFlags: 0
@@ -52,11 +53,31 @@ MonoBehaviour:
   spawnOffset: 1000
   player: {fileID: 0}
   skybox: {fileID: 2100000, guid: a1392184c4dcfc24da85858ff4c77781, type: 2}
+  dimensionMusics: []
   partPrefab: {fileID: 4109762113661139739, guid: 961d3444a4cf8c941a64039f4045ef3b,
     type: 3}
   sunYoffset: 250
+  sunXoffset: 0
   sunPrefab: {fileID: 2295597783400538782, guid: ac1dae5dc0d363f49ab01d54d323796a,
     type: 3}
-  reflectionProbePrefab: {fileID: 7675206822734124711, guid: 14a46947db6ed324193306900fbf518c,
-    type: 3}
   currentParts: []
+--- !u!114 &503498245604484005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3950802920046759641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea39eb0b9b4dcb94c8da18220daf8b51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxActiveNpc: 20
+  twoWayRoad: 1
+  spawnZ_Ofsset: 400
+  spawnRate: 1
+  npcPrefabs:
+  - {fileID: 1043531679161108460, guid: 0809d4f1dfb35b543b2bdaec7331f2a1, type: 3}
+  - {fileID: 1544709664429159661, guid: 4eb14d8ec8e473440bcaf98ca5f4e85d, type: 3}
+  currentNpcs: []

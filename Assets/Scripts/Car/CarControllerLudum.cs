@@ -7,7 +7,7 @@ using UnityEngine;
 public class CarControllerLudum : MonoBehaviour
 {
     public Rigidbody rb;
-
+    public bool isAlive = true;
     [Header("Speed")]
     public float currentSpeed;
     public float defaultSpeed = 45f;
@@ -45,15 +45,28 @@ public class CarControllerLudum : MonoBehaviour
     public float groundCheckLength = 1f;
     public LayerMask groundLayer;
 
+    private void OnEnable()
+    {
+        isAlive = true;
+    }
     private void Start()
     {
         rb = this.GetComponent<Rigidbody>();
         rb.useGravity = false;
+        isAlive = true;
     }
     private void FixedUpdate()
     {
-        Turn();
-        Thrust();
+        if (isAlive)
+        {
+            Turn();
+            Thrust();
+        }
+        else
+        {
+            rb.useGravity = true;
+            minY = -2;
+        }
         LimitPosition();
 
         m_DetectDown = Physics.Raycast(transform.position, -transform.up, out m_DownCheck, groundCheckLength, groundLayer);
@@ -157,5 +170,13 @@ public class CarControllerLudum : MonoBehaviour
     void LimitPosition()
     {
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, min_X, max_X), Mathf.Clamp(transform.position.y, minY, maxY), transform.position.z);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            isAlive = false;
+        }
     }
 }

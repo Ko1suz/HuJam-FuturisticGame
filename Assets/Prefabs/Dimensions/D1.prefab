@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4189339407206612036}
   - component: {fileID: 5435596293683264941}
+  - component: {fileID: 119177516841615122}
   m_Layer: 0
   m_Name: D1
   m_TagString: Untagged
@@ -52,10 +53,31 @@ MonoBehaviour:
   spawnOffset: 1000
   player: {fileID: 0}
   skybox: {fileID: 2100000, guid: 53e2b75a0ef44514e90ae1b8b636e9bc, type: 2}
+  dimensionMusics: []
   partPrefab: {fileID: 1458816718585631925, guid: c697d85fb7db6b14491292bf325e425a,
     type: 3}
   sunYoffset: 300
+  sunXoffset: 0
   sunPrefab: {fileID: 6644691025491490121, guid: e1e0b0aef047bb8408835346b4cc318b,
     type: 3}
-  reflectionProbePrefab: {fileID: 0}
   currentParts: []
+--- !u!114 &119177516841615122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2953736077349845059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea39eb0b9b4dcb94c8da18220daf8b51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxActiveNpc: 20
+  twoWayRoad: 1
+  spawnZ_Ofsset: 400
+  spawnRate: 1
+  npcPrefabs:
+  - {fileID: 1043531679161108460, guid: 0809d4f1dfb35b543b2bdaec7331f2a1, type: 3}
+  - {fileID: 1544709664429159661, guid: 4eb14d8ec8e473440bcaf98ca5f4e85d, type: 3}
+  currentNpcs: []

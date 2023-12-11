@@ -26,5 +26,6 @@ public class D1 : BaseDimension
     {
         gameManager.PostProccesControl.FilmGrain.active = true;
         gameManager.PostProccesControl.reflectionProbe.gameObject.SetActive(false);
+        gameManager.PostProccesControl.directinoalLightGameObj.transform.rotation = Quaternion.Euler(90, 0, 0);
     }
 }
