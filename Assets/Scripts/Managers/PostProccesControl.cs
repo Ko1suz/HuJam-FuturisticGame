@@ -7,6 +7,7 @@ using UnityEngine.Rendering;
 public class PostProccesControl : MonoBehaviour
 {
     [SerializeField] Volume PostProcces;
+    public Camera mainCamera;
     public GameObject directinoalLightGameObj;
     public Light directinoalLight;
     public ReflectionProbe reflectionProbe;
