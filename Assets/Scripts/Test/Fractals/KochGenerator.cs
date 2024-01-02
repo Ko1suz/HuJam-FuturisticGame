@@ -20,7 +20,20 @@ public class KochGenerator : MonoBehaviour
         Heptagon,
         Octagon
     }
+    public struct LineSegment
+    {
+        public Vector3 StartPostion { get; set; }
+        public Vector3 EndPostion { get; set; }
+        public Vector3 Direction { get; set; }
+        public float Length { get; set; }
+    }
+
+
     [SerializeField] protected _initiator initiator = new _initiator();
+
+    [SerializeField] protected AnimationCurve _generator;
+    [SerializeField] protected Keyframe[] _keys;
+    protected int _generationCount;
 
     protected int _initiatorPointAmount;
     private Vector3[] _initiatorPoint;
@@ -30,11 +43,17 @@ public class KochGenerator : MonoBehaviour
     [SerializeField] private float _initiatorSize;
 
     protected Vector3[] _postions;
+    protected Vector3[] _targetPostions;
+    private List<LineSegment> _lineSegmets;
     private void Awake()
     {
         GetInitiatorPoints();
+        // assign list & arrays
         Gizmos.color = Color.green;
         _postions = new Vector3[_initiatorPointAmount + 1];
+        _targetPostions = new Vector3[_initiatorPointAmount + 1];
+        _lineSegmets = new List<LineSegment>();
+        _keys = _generator.keys;
 
         _rotateVector = Quaternion.AngleAxis(_initalRotation, _rotateAxis) * _rotateVector;
         for (int i = 0; i < _initiatorPointAmount; i++)
@@ -43,6 +62,64 @@ public class KochGenerator : MonoBehaviour
             _rotateVector = Quaternion.AngleAxis(360 / _initiatorPointAmount, _rotateAxis) * _rotateVector;
         }
         _postions[_initiatorPointAmount] = _postions[0];
+        _targetPostions = _postions;
+    }
+    protected void KochGenerate(Vector3[] postions, bool outwards, float generatorMultiplayer)
+    {
+        //creating line segments
+        _lineSegmets.Clear();
+        for (int i = 0; i < postions.Length - 1; i++)
+        {
+            LineSegment line = new LineSegment();
+            line.StartPostion = postions[i];
+            if (i == postions.Length - 1)
+            {
+                line.EndPostion = postions[0];
+            }
+            else
+            {
+                line.EndPostion = postions[i + 1];
+            }
+            line.Direction = (line.EndPostion - line.StartPostion).normalized;
+            line.Length = Vector3.Distance(line.EndPostion, line.StartPostion);
+            _lineSegmets.Add(line);
+        }
+        // add the line segment points to a point array
+        List<Vector3> newPos = new List<Vector3>();
+        List<Vector3> targetPos = new List<Vector3>();
+
+        for (int i = 0; i < _lineSegmets.Count; i++)
+        {
+            newPos.Add(_lineSegmets[i].StartPostion);
+            targetPos.Add(_lineSegmets[i].StartPostion);
+            for (int j = 0; j < _keys.Length - 1; j++)
+            {
+                float moveAmount = _lineSegmets[i].Length * _keys[j].time;
+                float hightAmount = _lineSegmets[i].Length * _keys[j].value * generatorMultiplayer;
+                Vector3 movePos = _lineSegmets[i].StartPostion + (_lineSegmets[i].Direction * moveAmount);
+                Vector3 Direction;
+                if (outwards)
+                {
+                    Direction = Quaternion.AngleAxis(-90, _rotateAxis) * _lineSegmets[i].Direction;
+                }
+                else
+                {
+                    Direction = Quaternion.AngleAxis(90, _rotateAxis) * _lineSegmets[i].Direction;
+                }
+                newPos.Add(movePos);
+                targetPos.Add(movePos + (Direction * hightAmount));
+                
+            }
+        }
+        newPos.Add(_lineSegmets[0].StartPostion);
+        targetPos.Add(_lineSegmets[0].StartPostion);
+        _postions = new Vector3[newPos.Count];
+        _targetPostions = new Vector3[targetPos.Count];
+        _postions = newPos.ToArray();
+        _targetPostions = targetPos.ToArray();
+
+
+        _generationCount++;
     }
     public void OnDrawGizmos()
     {
