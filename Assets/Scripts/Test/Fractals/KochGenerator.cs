@@ -32,7 +32,21 @@ public class KochGenerator : MonoBehaviour
     [SerializeField] protected _initiator initiator = new _initiator();
 
     [SerializeField] protected AnimationCurve _generator;
+
+    [System.Serializable]
+    public struct StartGen
+    {
+        public bool outwards;
+        public float scale;
+    }
+
+    public StartGen[] _startGen;
+
     [SerializeField] protected Keyframe[] _keys;
+
+    [SerializeField] protected bool _useBezierCurves;
+    [Range(8,24)]
+    [SerializeField] protected int _bezierVertexCount;
     protected int _generationCount;
 
     protected int _initiatorPointAmount;
@@ -44,7 +58,27 @@ public class KochGenerator : MonoBehaviour
 
     protected Vector3[] _postions;
     protected Vector3[] _targetPostions;
+    protected Vector3[] _bezierPositons;
     private List<LineSegment> _lineSegmets;
+
+    protected Vector3[] BezierCurve(Vector3[] points, int vertexCount) 
+    {
+        var pointList = new List<Vector3>();
+        for (int i = 0; i < points.Length; i+=2)
+        {
+            if (i+2 <= points.Length - 1)
+            {
+                for (float ratio = 0f; ratio <= 1f; ratio += 1.0f / vertexCount)
+                {
+                    var tangetLineVertex1 = Vector3.Lerp(points[i], points[i + 1], ratio);
+                    var tangetLineVertex2 = Vector3.Lerp(points[i + 1], points[i + 2], ratio);
+                    var bezierPoint = Vector3.Lerp(tangetLineVertex1, tangetLineVertex2, ratio);
+                    pointList.Add(bezierPoint);
+                }
+            }
+        }
+        return pointList.ToArray();
+    } 
     private void Awake()
     {
         GetInitiatorPoints();
@@ -63,6 +97,11 @@ public class KochGenerator : MonoBehaviour
         }
         _postions[_initiatorPointAmount] = _postions[0];
         _targetPostions = _postions;
+
+        for (int i = 0; i < _startGen.Length; i++)
+        {
+            KochGenerate(_targetPostions, _startGen[i].outwards, _startGen[i].scale);
+        }
     }
     protected void KochGenerate(Vector3[] postions, bool outwards, float generatorMultiplayer)
     {
@@ -117,7 +156,7 @@ public class KochGenerator : MonoBehaviour
         _targetPostions = new Vector3[targetPos.Count];
         _postions = newPos.ToArray();
         _targetPostions = targetPos.ToArray();
-
+        _bezierPositons = BezierCurve(_targetPostions, _bezierVertexCount);
 
         _generationCount++;
     }
