@@ -15,6 +15,11 @@ public class KochLine : KochGenerator
     [Header("Audio")]
     public AudioPeer _audioPeer;
     public int[] _audioBands;
+    public Material _material;
+    public Color _color;
+    private Material _matInstance;
+    public int _audioBandMaterial;
+    public float _emmisonMultiplier;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,11 +31,16 @@ public class KochLine : KochGenerator
         _lineRenderer.positionCount = _postions.Length;
         _lineRenderer.SetPositions(_postions);
         _lerpPostions = new Vector3[_postions.Length];
+
+        //apply material
+        _matInstance = new Material(_material);
+        _lineRenderer.material = _matInstance;
     }
 
     // Update is called once per frame
     void Update()
     {
+        _matInstance.SetColor("_EmissionColor", _color * AudioPeer.audioBandBuffer[_audioBandMaterial] * _emmisonMultiplier);
         if (_generationCount != 0)
         {
             int count = 0;
