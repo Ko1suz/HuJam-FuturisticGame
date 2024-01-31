@@ -884,7 +884,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotateAxis: {x: 1, y: 1, z: 0}
-  _rotateSpeed: {x: 100, y: 200, z: 0}
+  _rotateSpeed: {x: 50, y: 100, z: 0}
 --- !u!114 &216550605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5789,7 +5789,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d01b7b55471c3744b8ed3dabdce493dc, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 110a9e00f7599f44a915de654631fa85, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
