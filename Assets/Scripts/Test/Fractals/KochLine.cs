@@ -35,12 +35,13 @@ public class KochLine : KochGenerator
         //apply material
         _matInstance = new Material(_material);
         _lineRenderer.material = _matInstance;
+        _matInstance.SetColor("_MainColor", _color);
     }
 
     // Update is called once per frame
     void Update()
     {
-        _matInstance.SetColor("_EmissionColor", _color * AudioPeer.audioBandBuffer[_audioBandMaterial] * _emmisonMultiplier);
+        _matInstance.SetColor("_HdrColor", _color * AudioPeer.audioBandBuffer[_audioBandMaterial] * _emmisonMultiplier);
         if (_generationCount != 0)
         {
             int count = 0;

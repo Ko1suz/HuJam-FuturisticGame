@@ -160,6 +160,8 @@ public class KochGenerator : MonoBehaviour
 
         _generationCount++;
     }
+
+    public float _lenghtOfSides;
     public void OnDrawGizmos()
     {
         GetInitiatorPoints();
@@ -185,6 +187,7 @@ public class KochGenerator : MonoBehaviour
                 Gizmos.DrawLine(_initiatorPoint[i], _initiatorPoint[0]);
             }
         }
+        _lenghtOfSides = Vector3.Distance(_initiatorPoint[0], _initiatorPoint[1]) * 0.5f;
     }
     private void GetInitiatorPoints()
     {
