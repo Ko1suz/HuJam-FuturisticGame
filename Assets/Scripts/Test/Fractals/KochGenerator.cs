@@ -64,7 +64,7 @@ public class KochGenerator : MonoBehaviour
     protected Vector3[] BezierCurve(Vector3[] points, int vertexCount) 
     {
         var pointList = new List<Vector3>();
-        for (int i = 0; i < points.Length; i+=2)
+        for (int i = 1; i < points.Length +2; i+=2)
         {
             if (i+2 <= points.Length - 1)
             {
@@ -75,8 +75,23 @@ public class KochGenerator : MonoBehaviour
                     var bezierPoint = Vector3.Lerp(tangetLineVertex1, tangetLineVertex2, ratio);
                     pointList.Add(bezierPoint);
                 }
+
             }
+           
         }
+        //for (int i = 1; i < points.Length; i += 2)
+        //{
+        //    if (i + 2 <= points.Length - 1)
+        //    {
+        //        for (float ratio = 0f; ratio <= 1f; ratio += 1.0f / vertexCount)
+        //        {
+        //            var tangetLineVertex1 = Vector3.Lerp(points[i], points[i + 1], ratio);
+        //            var tangetLineVertex2 = Vector3.Lerp(points[i + 1], points[i + 2], ratio);
+        //            var bezierPoint = Vector3.Lerp(tangetLineVertex1, tangetLineVertex2, ratio);
+        //            pointList.Add(bezierPoint);
+        //        }
+        //    }
+        //}
         return pointList.ToArray();
     } 
     private void Awake()

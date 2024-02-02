@@ -12,7 +12,7 @@ public class KochTrail : KochGenerator
         public Vector3 TargetPositon { get; set; }
         public Color EmissionColor { get; set; }
     }
-    public List<TrailObject> _trails;
+    [HideInInspector] public List<TrailObject> _trails;
     [Header("Trail Properties")]
     public GameObject _trailPrefab;
     public AnimationCurve _trialWidhCurve;
