@@ -83,7 +83,7 @@ public class KochTrail : KochGenerator
         _lerpPosSpeed = Mathf.Lerp(_speedMinMax.x, _speedMinMax.y, AudioPeer.amplitude);
         for (int i = 0; i < _trails.Count; i++)
         {
-            _trails[i].GO.transform.localPosition = Vector3.MoveTowards(_trails[i].GO.transform.localPosition, _trails[i].TargetPositon, Time.deltaTime * _lerpPosSpeed);
+         
             _distanceSnap = Vector3.Distance(_trails[i].GO.transform.localPosition, _trails[i].TargetPositon);
             if (_distanceSnap < 0.05f)
             {
@@ -113,6 +113,7 @@ public class KochTrail : KochGenerator
                     _trails[i].TargetPositon = _targetPostions[_trails[i].CurrentTargetNum];
                 }
             }
+            _trails[i].GO.transform.localPosition = Vector3.MoveTowards(_trails[i].GO.transform.localPosition, _trails[i].TargetPositon, Time.deltaTime * _lerpPosSpeed);
         }
     }
     // Update is called once per frame
