@@ -145,7 +145,7 @@ public class KochGenerator : MonoBehaviour
         {
             newPos.Add(_lineSegmets[i].StartPostion);
             targetPos.Add(_lineSegmets[i].StartPostion);
-            for (int j = 0; j < _keys.Length - 1; j++)
+            for (int j = 1; j < _keys.Length - 1; j++)
             {
                 float moveAmount = _lineSegmets[i].Length * _keys[j].time;
                 float hightAmount = _lineSegmets[i].Length * _keys[j].value * generatorMultiplayer;
@@ -255,7 +255,7 @@ public class KochGenerator : MonoBehaviour
                 break;
             default:
 
-                _rotateVector = new Vector3(1, 0, 0);
+                _rotateVector = new Vector3(0, 1, 0);
                 _rotateAxis = new Vector3(1, 0, 0);
                 break;
         }
