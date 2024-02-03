@@ -23,16 +23,19 @@ public class KochTrail : KochGenerator
 
     [Header("Audio")]
     public int[] _audioBand;
-    public Vector2 _speedMinMax;
+    public Vector2 _speedMinMax, _widhtMinMax, _trailTimeMinMax;
+    public float _colorMultiplier;
 
     //Private varriables
     private float _lerpPosSpeed;
     private float _distanceSnap;
-
+    private Color _startColor, _endColor;
 
     // Start is called before the first frame update
     void Start()
     {
+        _startColor = new Color(0,0,0,0);
+        _endColor = new Color(0,0,0,1);
         _trails = new List<TrailObject>();
         for (int i = 0; i < _initiatorPointAmount; i++)
         {
@@ -116,9 +119,28 @@ public class KochTrail : KochGenerator
             _trails[i].GO.transform.localPosition = Vector3.MoveTowards(_trails[i].GO.transform.localPosition, _trails[i].TargetPositon, Time.deltaTime * _lerpPosSpeed);
         }
     }
+    void AudioBehaviour()
+    {
+        for (int i = 0; i < _initiatorPointAmount; i++)
+        {
+            Color colorLerp = Color.Lerp(_startColor, _trails[i].EmissionColor * _colorMultiplier, AudioPeer.audioBand[_audioBand[i]]);
+            _trails[i].Trail.material.SetColor("_HdrColor", colorLerp);
+
+            colorLerp = Color.Lerp(_startColor, _endColor, AudioPeer.audioBand[_audioBand[i]]);
+            _trails[i].Trail.material.SetColor("_MainColor", colorLerp);
+
+            float widhtLerp = Mathf.Lerp(_widhtMinMax.x, _widhtMinMax.y, AudioPeer.audioBandBuffer[_audioBand[i]]);
+            _trails[i].Trail.widthMultiplier = widhtLerp;
+
+            float timeLerp = Mathf.Lerp(_trailTimeMinMax.x, _trailTimeMinMax.y, AudioPeer.audioBandBuffer[_audioBand[i]]);
+            _trails[i].Trail.time = timeLerp;
+
+        }
+    }
     // Update is called once per frame
     void Update()
     {
         Movment();
+        AudioBehaviour();
     }
 }
